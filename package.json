@@ -1,0 +1,15 @@
+{
+  "name": "open-api-merge-tools",
+  "version": "1.0.0",
+  "description": "open-api-tools",
+  "main": "index.js",
+  "repository": "git@github.com:keisuke6065/open-api-merge-tools.git",
+  "author": "keisuke6065@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js ./test/openapi.yaml ./test/test.yaml"
+  },
+  "dependencies": {
+    "js-yaml": "^3.12.0"
+  }
+}

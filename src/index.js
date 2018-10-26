@@ -1,14 +1,17 @@
 yaml = require('js-yaml');
 fs   = require('fs');
 
-for(let i = 0;i < process.argv.length; i++){
-    console.log("argv[" + i + "] = " + process.argv[i]);
+function readYamlFile(filePath) {
+    try {
+        const targetYamlFile = fs.readFileSync(filePath);
+        return yaml.safeLoad(targetYamlFile, 'utf8');
+    } catch (e) {
+        console.log(e)
+    }
 }
 
+const test = readYamlFile(process.argv[2]);
+console.log(test);
 
-try {
-    const doc = yaml.safeLoad(fs.readFileSync(process.argv[2], 'utf8'));
-    console.log(doc);
-} catch (e) {
-    console.log(e);
-}
+const doc = readYamlFile(process.argv[3]);
+console.log(doc);
