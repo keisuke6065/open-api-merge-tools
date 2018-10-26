@@ -38,17 +38,10 @@ const writeYamlFile = (data, filename) => {
   }
 };
 
-const envLocal = process.env;
 const options = getOptions(process.argv);
-
 const openApiFile = readYamlFile(options.apiFilePath);
-// console.log(openApiFile);
+const envFile = readYamlEnv(readYamlFile(options.envFilePath), options.targetENV);
 
-const envFile = readYamlEnv(
-    readYamlFile(options.envFilePath),
-    options.targetENV
-);
-console.log(envFile);
 
 const replaceEnv = (x) => {
   if (x.length !== undefined) {
@@ -58,7 +51,10 @@ const replaceEnv = (x) => {
         return envFile[envs[i]];
       }
     }
-    return x;
+    if (x instanceof Array) {
+      return _.mapValues(x, (a) => replaceEnv(a));
+    }
+    return x
   }
   return _.mapValues(x, (a) => replaceEnv(a));
 };
