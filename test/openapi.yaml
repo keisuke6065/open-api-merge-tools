@@ -1,9 +1,9 @@
 openapi: "3.0.1"
 info:
-  title: "sample-careertrek-candidate"
+  title: "xxxxxxxxxxxxxxxxxxxxxxx"
   version: "2018-10-25T09:56:02Z"
 servers:
-- url: "https://wu7t5yocxb.execute-api.ap-northeast-1.amazonaws.com/{basePath}"
+- url: "https://xxxxxxxxxxxxxxxxxxxxxx/{basePath}"
   variables:
     basePath:
       default: "/test-careertrek-candidate"
