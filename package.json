@@ -7,11 +7,15 @@
   "author": "keisuke6065@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js ./test_yaml/openapi.yaml ./test_yaml/env.yaml -local"
+    "start": "node src/index.js ./test_yaml/openapi.yaml ./test_yaml/env.yaml -local openapi.yaml",
+    "test": "jasmine spec/**.js"
   },
   "dependencies": {
+    "eslint": "^5.7.0",
     "js-yaml": "^3.12.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
     "jasmine": "^3.3.0"
   }
 }
