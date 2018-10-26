@@ -1,0 +1,6 @@
+local:
+  key: "https://local.com/{basePath}"
+staging:
+  key: "https://staging.com/{basePath}"
+production:
+  key: "https://production.com/{basePath}"
