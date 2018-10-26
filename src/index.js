@@ -6,7 +6,7 @@ const mkdirp = require('mkdirp');
 
 /**
  * @param filePath
- * @returns {Object}
+ * @return {Object}
  */
 const readYamlFile = (filePath) => {
   try {
@@ -20,7 +20,7 @@ const readYamlFile = (filePath) => {
 /**
  * @param envFile
  * @param targetENV
- * @returns {Object}
+ * @return {Object}
  */
 const getEnv = (envFile, targetENV) => {
   if (envFile.propertyIsEnumerable(targetENV)) {
@@ -49,7 +49,7 @@ const getOptions = (args) => {
  * write yaml file
  * @param data
  * @param filename
- * @returns {string}
+ * @return {string}
  */
 const writeYamlFile = (outputPath, data) => {
   const getDirName = path.dirname;
@@ -76,7 +76,7 @@ const replaceEnv = (x) => {
     if (x instanceof Array) {
       return _.mapValues(x, (a) => replaceEnv(a));
     }
-    return x
+    return x;
   }
   return _.mapValues(x, (a) => replaceEnv(a));
 };
