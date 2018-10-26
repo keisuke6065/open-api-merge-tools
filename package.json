@@ -1,6 +1,6 @@
 {
   "name": "open-api-merge-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "open-api-tools",
   "main": "index.js",
   "repository": "git@github.com:keisuke6065/open-api-merge-tools.git",
