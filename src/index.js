@@ -10,27 +10,33 @@ const readYamlFile= (filePath) => {
         throw new Error(e)
     }
 };
-const readYamlEnv = (envFile) => {
+const readYamlEnv = (envFile, targetENV) => {
     if (envFile.propertyIsEnumerable(targetENV)) {
         return envFile[targetENV];
     }
     throw new Error('env yaml not target')
 };
 
+const getOptions = (args) => {
+    if  (args.length <  5){
+      throw new Error('invalid arguments length.')
+    }
+    const options = {};
+    options.apiFilePath = args[2];
+    options.envFilePath = args[3];
+    options.targetENV = args[4].replace('-', '');
+    return options;
+}
 
 const envLocal = process.env;
-// console.log(envLocal);
+const options = getOptions(process.argv);
 
-const openApiFile = readYamlFile(process.argv[2]);
+const openApiFile = readYamlFile(options.apiFilePath);
 // console.log(openApiFile);
 
-const envFile = readYamlFile(process.argv[3]);
+const envFile = readYamlFile(options.envFilePath);
 console.log(envFile);
 
-const targetENV = process.argv[4].replace('-', '');
-console.log(targetENV);
-
-
-console.log(readYamlEnv(envFile));
+console.log(readYamlEnv(envFile, options.targetENV));
 
 console.log(openApiFile);
