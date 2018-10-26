@@ -9,6 +9,8 @@ function readYamlFile(filePath) {
         console.log(e)
     }
 }
+const env = process.env;
+console.log(env);
 
 const test = readYamlFile(process.argv[2]);
 console.log(test);
