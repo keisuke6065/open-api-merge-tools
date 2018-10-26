@@ -1,5 +1,4 @@
 const g = require('../src/gather');
-const fs = require('fs');
 
 describe("gather function", () => {
     const rootYaml = './test_yaml/openapi.yaml';
