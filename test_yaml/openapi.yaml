@@ -103,7 +103,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./components/schemas/Empty.yaml"
+                $ref: "#/components/schemas/DictionaryDTO"
       x-amazon-apigateway-integration:
         responses:
           default:
