@@ -16,9 +16,7 @@ describe("merge function", () => {
                 {$ref: "./components/schemas/Empty.yaml"}
             ]
         };
-        console.log("input: " + JSON.stringify(target) + " bundled: " + JSON.stringify(bundled));
         let merged = m.merge(target, bundled);
-        console.log("result: " + JSON.stringify(merged));
         expect(merged.externalRef.piyo).toEqual("piyo");
         expect(merged.externalRefArray[1].piyo).toEqual("piyo");
     });
