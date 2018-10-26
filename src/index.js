@@ -57,7 +57,7 @@ const getOptions = (args) => {
  * write yaml file
  * @param data
  * @param filename
- * @return {string}
+ * @return void
  */
 const writeYamlFile = (outputPath, data) => {
   const getDirName = path.dirname;
