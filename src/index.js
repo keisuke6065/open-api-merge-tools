@@ -10,14 +10,14 @@ const readYamlFile= (filePath) => {
     }
 };
 
-const env = process.env;
-console.log(env);
+const envLocal = process.env;
+console.log(envLocal);
 
 const test = readYamlFile(process.argv[2]);
 console.log(test);
 
-const doc = readYamlFile(process.argv[3]);
-console.log(doc);
+const envFile = readYamlFile(process.argv[3]);
+console.log(envFile);
 
 const targetENV = process.argv[4].replace('-', '');
 console.log(targetENV);
