@@ -1,6 +1,8 @@
 const yaml = require('js-yaml');
 const fs = require('fs');
 const _ = require('lodash');
+const path = require('path');
+const mkdirp = require('mkdirp');
 
 /**
  * @param filePath
@@ -39,8 +41,10 @@ const getOptions = (args) => {
   options.apiFilePath = args[2];
   options.envFilePath = args[3];
   options.targetENV = args[4].replace('-', '');
+  options.outputPath = args[5];
   return options;
 };
+
 
 /**
  * write yaml file
@@ -48,15 +52,14 @@ const getOptions = (args) => {
  * @param filename
  * @returns {string}
  */
-const writeYamlFile = (data, filename) => {
-  try {
-    const dirname = './output';
-    if (!fs.existsSync(dirname)) fs.mkdirSync(dirname);
-    fs.writeFileSync('./output/' + filename, yaml.safeDump(data));
-    return 'Successful XD!!! \n ./output/' + filename + '\n';
-  } catch (e) {
-    return 'Failed :(';
-  }
+const writeYamlFile = (outputPath, data) => {
+  const getDirName = path.dirname;
+  mkdirp(getDirName(outputPath), (err) => {
+    if (err) {
+      throw new Error('cannot create directory.');
+    }
+    fs.writeFileSync(outputPath, yaml.safeDump(data, 'utf8'));
+  });
 };
 
 const replaceEnv = (x) => {
