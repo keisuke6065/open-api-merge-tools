@@ -1,5 +1,5 @@
 yaml = require('js-yaml');
-fs   = require('fs');
+fs = require('fs');
 
 function readYamlFile(filePath) {
     try {
@@ -9,6 +9,7 @@ function readYamlFile(filePath) {
         console.log(e)
     }
 }
+
 const env = process.env;
 console.log(env);
 
@@ -17,3 +18,6 @@ console.log(test);
 
 const doc = readYamlFile(process.argv[3]);
 console.log(doc);
+
+const targetENV = process.argv[4];
+console.log(targetENV.replace('-', ''));
