@@ -1,14 +1,20 @@
 const yaml = require('js-yaml');
 const fs = require('fs');
 const _ = require('lodash');
+const path = require('path');
+const mkdirp = require('mkdirp');
 
-const readYamlFile= (filePath) => {
-    try {
-        const targetYamlFile = fs.readFileSync(filePath);
-        return yaml.safeLoad(targetYamlFile, 'utf8');
-    } catch (e) {
-        throw new Error(e)
-    }
+/**
+ * @param filePath
+ * @return {Object}
+ */
+const readYamlFile = (filePath) => {
+  try {
+    const targetYamlFile = fs.readFileSync(filePath);
+    return yaml.safeLoad(targetYamlFile, 'utf8');
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 const createEnvInfo = (file, env, target) => {
     if (!file.propertyIsEnumerable(target)) {
@@ -30,26 +36,40 @@ const createEnvInfo = (file, env, target) => {
     return envInfo;
 };
 
+/**
+ * command line args mapping
+ * @param args
+ */
 const getOptions = (args) => {
-    if  (args.length <  5){
-      throw new Error('invalid arguments length.')
-    }
-    const options = {};
-    options.apiFilePath = args[2];
-    options.envFilePath = args[3];
-    options.targetENV = args[4].replace('-', '');
-    return options;
+  if (args.length < 5) {
+    throw new Error('invalid arguments length.');
+  }
+  const options = {};
+  options.apiFilePath = args[2];
+  options.envFilePath = args[3];
+  options.targetENV = args[4].replace('-', '');
+  options.outputPath = args[5];
+  return options;
 };
 
-const writeYamlFile= (data, filename) => {
-    try {
-        const dirname = './output';
-        if (!fs.existsSync(dirname)) fs.mkdirSync(dirname);
-        fs.writeFileSync('./output/' + filename, yaml.safeDump(data));
-        return 'Successful XD!!! \n ./output/' + filename + '\n';
-    } catch (e) {
-        return 'Failed :(';
+/**
+ * write yaml file
+ * @param data
+ * @param filename
+ * @return {string}
+ */
+const writeYamlFile = (outputPath, data) => {
+  const getDirName = path.dirname;
+  mkdirp(getDirName(outputPath), (err) => {
+    if (err) {
+      throw new Error('cannot create directory.');
     }
+    try {
+      fs.writeFileSync(outputPath, yaml.safeDump(data));
+    } catch (e) {
+      throw new Error(e);
+    }
+  });
 };
 
 const envLocal = process.env;
@@ -72,7 +92,17 @@ const replaceEnv = (x) => {
             }
         }
         return x
+
     }
-    return _.mapValues(x, (a) => replaceEnv(a));
+    if (x instanceof Array) {
+      return _.mapValues(x, (a) => replaceEnv(a));
+    }
+    return x;
+  }
+  return _.mapValues(x, (a) => replaceEnv(a));
 };
-// console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
+
+const options = getOptions(process.argv);
+const openApiFile = readYamlFile(options.apiFilePath);
+const envFile = getEnv(readYamlFile(options.envFilePath), options.targetENV);
+console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
