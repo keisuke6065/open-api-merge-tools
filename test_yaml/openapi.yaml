@@ -1,9 +1,9 @@
 openapi: "3.0.1"
 info:
-  title: "xxxxxxxxxxxxxxxxxxxxxxx"
+  title: '{env.url}'
   version: "2018-10-25T09:56:02Z"
 servers:
-- url: {env.key}
+- url: '{env.url}'
   variables:
     basePath:
       default: "/test_yaml-careertrek-candidate"

@@ -1,5 +1,6 @@
-yaml = require('js-yaml');
-fs = require('fs');
+const yaml = require('js-yaml');
+const fs = require('fs');
+const _ = require('lodash');
 
 const readYamlFile= (filePath) => {
     try {
@@ -25,7 +26,7 @@ const getOptions = (args) => {
     options.envFilePath = args[3];
     options.targetENV = args[4].replace('-', '');
     return options;
-}
+};
 
 const writeYamlFile= (data, filename) => {
     try {
@@ -44,18 +45,20 @@ const options = getOptions(process.argv);
 const openApiFile = readYamlFile(options.apiFilePath);
 // console.log(openApiFile);
 
-const envFile = readYamlFile(options.envFilePath);
+const envFile = readYamlEnv(readYamlFile(options.envFilePath), options.targetENV);
 console.log(envFile);
 
-console.log(readYamlEnv(envFile, options.targetENV));
 
-console.log(openApiFile);
-
-const test = readYamlFile(process.argv[2]);
-console.log(test);
-
-const doc = readYamlFile(process.argv[3]);
-console.log(doc);
-
-const output = writeYamlFile(test, process.argv[5]);
-console.log(output);
+const replaceEnv = (x) => {
+    if (x.length !== undefined) {
+        const envs = Object.keys(envFile);
+        for (let i = 0; i < envs.length; i++) {
+            if (_.isMatch(x, `{env.${envs[i]}`)) {
+                return envFile[envs[i]];
+            }
+        }
+        return x
+    }
+    return _.mapValues(x, (a) => replaceEnv(a));
+};
+console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
