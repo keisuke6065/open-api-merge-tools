@@ -1,13 +1,20 @@
 const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
-const find = require('find');
+const yaml = require('js-yaml');
 
 exports.gather = (rootYamlPath) => {
-
+    let result = {};
+    walkDirectory(rootYamlPath)
+        .filter(it => it.endsWith('.yaml'))
+        .forEach(targetYamlPath => {
+            const targetYamlFile = fs.readFileSync(targetYamlPath);
+            result[targetYamlPath] = yaml.safeLoad(targetYamlFile, 'utf8')
+        });
+    return result;
 };
 
-exports.walkDirectory = (rootYaml) => {
+const walkDirectory = (rootYaml) => {
     return _.flatMap(
         listFiles(path.dirname(rootYaml)).filter(isDirectory),
         walkDirectoryRecursively);

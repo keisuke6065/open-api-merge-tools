@@ -1,10 +1,12 @@
 const g = require('../src/gather');
 const fs = require('fs');
 
-describe("A suite is just a function", () => {
+describe("gather function", () => {
     const rootYaml = './test_yaml/openapi.yaml';
-    it("and so is a spec", () => {
-        let yamlPaths = g.walkDirectory(rootYaml);
-        expect(yamlPaths).toContain('./test_yaml/components/schemas/.gitkeep');
+    it("gather", () => {
+        let loaded = g.gather(rootYaml);
+        expect(Object.keys(loaded)).toContain('./test_yaml/components/schemas/Empty.yaml');
+        const loadedObj = loaded['./test_yaml/components/schemas/Empty.yaml'];
+        expect(loadedObj.Empty.title).toEqual("Empty Schema");
     });
 });
