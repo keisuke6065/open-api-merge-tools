@@ -1,16 +1,25 @@
-const g = require('../src/gather');
 const m = require('../src/merge');
 
 describe("merge function", () => {
-    const rootYaml = './test_yaml/openapi.yaml';
     it("merge", () => {
-        let bundled = g.gather(rootYaml);
-        let refs = {
-            internalRef: {$ref: "#/components/schemas/DictionaryDTO"},
-            externalRef: {$ref: "./components/schemas/Empty.yaml"}
+        let bundled = {
+            "./components/schemas/Empty.yaml": {
+                hoge: "hoge",
+                piyo: "piyo"
+            }
         };
-        let merged = m.merge(refs, bundled);
-        console.log(JSON.stringify(merged));
-        expect(merged.externalRef.Empty.title).toEqual("Empty Schema");
+        let target = {
+            internalRef: {$ref: "#/components/schemas/DictionaryDTO"},
+            externalRef: {$ref: "./components/schemas/Empty.yaml"},
+            externalRefArray: [
+                {$ref: "#/components/schemas/DictionaryDTO"},
+                {$ref: "./components/schemas/Empty.yaml"}
+            ]
+        };
+        console.log("input: " + JSON.stringify(target) + " bundled: " + JSON.stringify(bundled));
+        let merged = m.merge(target, bundled);
+        console.log("result: " + JSON.stringify(merged));
+        expect(merged.externalRef.piyo).toEqual("piyo");
+        expect(merged.externalRefArray[1].piyo).toEqual("piyo");
     });
 });
