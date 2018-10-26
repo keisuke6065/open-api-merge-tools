@@ -16,24 +16,25 @@ const readYamlFile = (filePath) => {
     throw new Error(e);
   }
 };
-const createEnvInfo = (file, env, target) => {
-    if (!file.propertyIsEnumerable(target)) {
-        throw new Error('env yaml not target')
-    }
-    
-    let envInfo = file[target];
 
-    const envKeys = Object.keys(env);
-    _.mapValues(envInfo, function(x){
-        x = x.replace(/\${([^}]+)}/g, function(srcStr, envStr){
-          if(!envKeys[envStr]){
-              //throw new Error(`invalid env. "${envStr}" is not found.`);
-          }
-          return envKeys[envStr];
-        })
-        return x;
-      });
-    return envInfo;
+const createEnvInfo = (file, env, target) => {
+  if (!file.propertyIsEnumerable(target)) {
+    throw new Error('env yaml not target')
+  }
+
+  let envInfo = file[target];
+
+  const envKeys = Object.keys(env);
+  _.mapValues(envInfo, function (x) {
+    x = x.replace(/\${([^}]+)}/g, function (srcStr, envStr) {
+      if (!envKeys[envStr]) {
+        //throw new Error(`invalid env. "${envStr}" is not found.`);
+      }
+      return envKeys[envStr];
+    });
+    return x;
+  });
+  return envInfo;
 };
 
 /**
@@ -72,6 +73,22 @@ const writeYamlFile = (outputPath, data) => {
   });
 };
 
+const replaceEnv = (x) => {
+  if (x.length !== undefined) {
+    const envs = Object.keys(envInfo);
+    for (let i = 0; i < envs.length; i++) {
+      if (_.isMatch(x, `{env.${envs[i]}`)) {
+        return envInfo[envs[i]];
+      }
+    }
+    return x
+  }
+  if (x instanceof Array) {
+    return _.mapValues(x, (a) => replaceEnv(a));
+  }
+  return _.mapValues(x, (a) => replaceEnv(a));
+};
+
 const envLocal = process.env;
 
 const options = getOptions(process.argv);
@@ -83,26 +100,4 @@ const envInfo = createEnvInfo(readYamlFile(options.envFilePath), envLocal, optio
 // console.log(envInfo);
 
 
-const replaceEnv = (x) => {
-    if (x.length !== undefined) {
-        const envs = Object.keys(envInfo);
-        for (let i = 0; i < envs.length; i++) {
-            if (_.isMatch(x, `{env.${envs[i]}`)) {
-                return envInfo[envs[i]];
-            }
-        }
-        return x
-
-    }
-    if (x instanceof Array) {
-      return _.mapValues(x, (a) => replaceEnv(a));
-    }
-    return x;
-  }
-  return _.mapValues(x, (a) => replaceEnv(a));
-};
-
-const options = getOptions(process.argv);
-const openApiFile = readYamlFile(options.apiFilePath);
-const envFile = getEnv(readYamlFile(options.envFilePath), options.targetENV);
 console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
