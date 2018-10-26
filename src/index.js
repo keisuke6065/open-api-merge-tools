@@ -25,14 +25,14 @@ const createEnvInfo = (file, env, target) => {
   let envInfo = file[target];
 
   const envKeys = Object.keys(env);
-  _.mapValues(envInfo, function (x) {
-    x = x.replace(/\${([^}]+)}/g, function (srcStr, envStr) {
+  _.mapValues(envInfo, function (value) {
+    value = value.replace(/\${([^}]+)}/g, function (srcStr, envStr) {
       if (!envKeys[envStr]) {
         //throw new Error(`invalid env. "${envStr}" is not found.`);
       }
       return envKeys[envStr];
     });
-    return x;
+    return value;
   });
   return envInfo;
 };
