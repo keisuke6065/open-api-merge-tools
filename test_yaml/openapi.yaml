@@ -6,7 +6,7 @@ servers:
 - url: "https://xxxxxxxxxxxxxxxxxxxxxx/{basePath}"
   variables:
     basePath:
-      default: "/test-careertrek-candidate"
+      default: "/test_yaml-careertrek-candidate"
 paths:
   /a:
     get:
@@ -24,7 +24,7 @@ paths:
       security:
       - cognito-careertrek-candidate: []
       x-amazon-apigateway-integration:
-        uri: "http://test-apigateway-2aaa6d5e8ee8c542.elb.ap-northeast-1.amazonaws.com"
+        uri: "http://test_yaml-apigateway-2aaa6d5e8ee8c542.elb.ap-northeast-1.amazonaws.com"
         responses:
           default:
             statusCode: "200"
@@ -77,7 +77,7 @@ paths:
       security:
       - cognito-careertrek-candidate: []
       x-amazon-apigateway-integration:
-        uri: "http://test-apigateway-2aaa6d5e8ee8c542.elb.ap-northeast-1.amazonaws.com"
+        uri: "http://test_yaml-apigateway-2aaa6d5e8ee8c542.elb.ap-northeast-1.amazonaws.com"
         responses:
           default:
             statusCode: "200"

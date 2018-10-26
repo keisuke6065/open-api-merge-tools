@@ -21,3 +21,5 @@ console.log(doc);
 
 const targetENV = process.argv[4];
 console.log(targetENV.replace('-', ''));
+
+
