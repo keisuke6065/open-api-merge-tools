@@ -28,6 +28,34 @@ openapi.yaml directory constitution
 ├── env.yaml
 └── openapi.yaml                main yaml file 
 ```
+  
+  
+env.yaml
+```
+local:
+  url: "https://local.com/{basePath}"
+  test: {API_URL}                   replace environment variable
+staging:
+  url: {API_URL}                    replace environment variable
+  test: {API_URL}
+production:
+  url: {API_URL}                    replace environment variable
+  test: {API_URL}
+```
+
+openapi.yaml  
+```
+openapi: "3.0.1"
+info:
+  title: '{env.test}'               replace environment file variable
+  version: "2018-10-25T09:56:02Z"
+servers:
+- url: '{env.url}'                  replace environment file variable
+  variables:
+    basePath:
+      default: "/xxxx"
+...
+```  
 
 ## directory
 ```
