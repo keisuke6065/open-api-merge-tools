@@ -26,8 +26,7 @@ const writeYamlFile= (data) => {
     } catch (e) {
         return "Failed :("
     }
-}
-
+};
 
 const envLocal = process.env;
 // console.log(envLocal);
