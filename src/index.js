@@ -45,7 +45,6 @@ const getOptions = (args) => {
   return options;
 };
 
-
 /**
  * write yaml file
  * @param data
@@ -58,7 +57,11 @@ const writeYamlFile = (outputPath, data) => {
     if (err) {
       throw new Error('cannot create directory.');
     }
-    fs.writeFileSync(outputPath, yaml.safeDump(data, 'utf8'));
+    try {
+      fs.writeFileSync(outputPath, yaml.safeDump(data));
+    } catch (e) {
+      throw new Error(e);
+    }
   });
 };
 
