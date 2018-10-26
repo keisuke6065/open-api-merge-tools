@@ -1,6 +1,6 @@
 local:
   key: "https://local.com/{basePath}"
 staging:
-  key: "https://staging.com/{basePath}"
+  key: {API_URL}
 production:
-  key: "https://production.com/{basePath}"
+  key: {API_URL}
