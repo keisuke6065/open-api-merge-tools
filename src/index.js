@@ -90,14 +90,7 @@ const replaceEnv = (x) => {
 };
 
 const envLocal = process.env;
-
 const options = getOptions(process.argv);
-
 const openApiFile = readYamlFile(options.apiFilePath);
-// console.log(openApiFile);
-
 const envInfo = createEnvInfo(readYamlFile(options.envFilePath), envLocal, options.targetENV);
-// console.log(envInfo);
-
-
 console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
