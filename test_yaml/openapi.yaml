@@ -20,7 +20,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
+                $ref: "./components/schemas/Empty.yaml"
       security:
       - cognito-careertrek-candidate: []
       x-amazon-apigateway-integration:
@@ -52,7 +52,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
+                $ref: "./components/schemas/Empty.yaml"
       x-amazon-apigateway-integration:
         responses:
           default:
@@ -73,7 +73,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
+                $ref: "./components/schemas/Empty.yaml"
       security:
       - cognito-careertrek-candidate: []
       x-amazon-apigateway-integration:
@@ -103,7 +103,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Empty"
+                $ref: "./components/schemas/Empty.yaml"
       x-amazon-apigateway-integration:
         responses:
           default:
@@ -118,9 +118,6 @@ paths:
         type: "mock"
 components:
   schemas:
-    Empty:
-      title: "Empty Schema"
-      type: "object"
     DictionaryDTO:
       type: array
       items:
