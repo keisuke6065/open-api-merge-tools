@@ -7,7 +7,7 @@
   "author": "keisuke6065@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js ./test/openapi.yaml ./test/env.yaml -local"
+    "start": "node src/index.js ./test_yaml/openapi.yaml ./test_yaml/env.yaml -local"
   },
   "dependencies": {
     "js-yaml": "^3.12.0"
