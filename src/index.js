@@ -1,6 +1,7 @@
 yaml = require('js-yaml');
 fs = require('fs');
 
+
 const readYamlFile= (filePath) => {
     try {
         const targetYamlFile = fs.readFileSync(filePath);
@@ -20,8 +21,8 @@ const readYamlEnv = (envFile) => {
 const envLocal = process.env;
 // console.log(envLocal);
 
-const test = readYamlFile(process.argv[2]);
-// console.log(test);
+const openApiFile = readYamlFile(process.argv[2]);
+// console.log(openApiFile);
 
 const envFile = readYamlFile(process.argv[3]);
 console.log(envFile);
@@ -32,3 +33,4 @@ console.log(targetENV);
 
 console.log(readYamlEnv(envFile));
 
+console.log(openApiFile);

@@ -3,7 +3,7 @@ info:
   title: "xxxxxxxxxxxxxxxxxxxxxxx"
   version: "2018-10-25T09:56:02Z"
 servers:
-- url: "https://xxxxxxxxxxxxxxxxxxxxxx/{basePath}"
+- url: {env.key}
   variables:
     basePath:
       default: "/test_yaml-careertrek-candidate"
