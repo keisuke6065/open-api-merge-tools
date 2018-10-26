@@ -12,6 +12,9 @@
     "lint": "./node_modules/.bin/eslint ./src/*.js",
     "format": "prettier-eslint --write \"src/*.js\""
   },
+  "bin": {
+    "open-api-merge": "src/index.js"
+  },
   "dependencies": {
     "js-yaml": "^3.12.0",
     "lodash": "^4.17.11",

@@ -93,4 +93,5 @@ const envLocal = process.env;
 const options = getOptions(process.argv);
 const openApiFile = readYamlFile(options.apiFilePath);
 const envInfo = createEnvInfo(readYamlFile(options.envFilePath), envLocal, options.targetENV);
-console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
+console.log();
+writeYamlFile(options.outputPath,_.mapValues(openApiFile, (x) => replaceEnv(x)))
