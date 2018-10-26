@@ -20,10 +20,10 @@ const writeYamlFile= (data) => {
     try {
         const dirname = './output';
         if (!fs.existsSync(dirname)) fs.mkdirSync(dirname);
-        fs.writeFileSync("./output/openapi.yaml", yaml.safeDump(data));
-        return "Successful XD!!! \n ./output/openapi.yaml \n";
+        fs.writeFileSync('./output/openapi.yaml', yaml.safeDump(data));
+        return 'Successful XD!!! \n ./output/openapi.yaml\n';
     } catch (e) {
-        return "Failed :("
+        return 'Failed :(';
     }
 };
 
