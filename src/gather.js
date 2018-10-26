@@ -5,11 +5,13 @@ const yaml = require('js-yaml');
 
 exports.gather = (rootYamlPath) => {
     let result = {};
+    const rootDir = path.dirname(rootYamlPath);
     walkDirectory(rootYamlPath)
         .filter(it => it.endsWith('.yaml'))
         .forEach(targetYamlPath => {
             const targetYamlFile = fs.readFileSync(targetYamlPath);
-            result[targetYamlPath] = yaml.safeLoad(targetYamlFile, 'utf8')
+            const targetYamlKey = targetYamlPath.replace(rootDir, ".");
+            result[targetYamlKey] = yaml.safeLoad(targetYamlFile, 'utf8')
         });
     return result;
 };
