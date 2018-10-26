@@ -17,14 +17,14 @@ const readYamlEnv = (envFile) => {
     throw new Error('env yaml not target')
 };
 
-const writeYamlFile= (data) => {
+const writeYamlFile= (data, filename) => {
     try {
         const dirname = './output';
         if (!fs.existsSync(dirname)) fs.mkdirSync(dirname);
-        fs.writeFileSync("./output/openapi.yaml", yaml.safeDump(data));
-        return "Successful XD!!! \n ./output/openapi.yaml \n";
+        fs.writeFileSync('./output/' + filename, yaml.safeDump(data));
+        return 'Successful XD!!! \n ./output/'+ filename +' \n';
     } catch (e) {
-        return "Failed :("
+        return 'Failed :(';
     }
 };
 
@@ -51,5 +51,5 @@ console.log(test);
 const doc = readYamlFile(process.argv[3]);
 console.log(doc);
 
-const output = writeYamlFile(test);
+const output = writeYamlFile(test, process.argv[5]);
 console.log(output);
