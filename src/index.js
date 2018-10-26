@@ -2,6 +2,10 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const _ = require('lodash');
 
+/**
+ * @param filePath
+ * @returns {Object}
+ */
 const readYamlFile = (filePath) => {
   try {
     const targetYamlFile = fs.readFileSync(filePath);
@@ -10,13 +14,23 @@ const readYamlFile = (filePath) => {
     throw new Error(e);
   }
 };
-const readYamlEnv = (envFile, targetENV) => {
+
+/**
+ * @param envFile
+ * @param targetENV
+ * @returns {Object}
+ */
+const getEnv = (envFile, targetENV) => {
   if (envFile.propertyIsEnumerable(targetENV)) {
     return envFile[targetENV];
   }
   throw new Error('env yaml not target');
 };
 
+/**
+ * command line args mapping
+ * @param args
+ */
 const getOptions = (args) => {
   if (args.length < 5) {
     throw new Error('invalid arguments length.');
@@ -27,6 +41,13 @@ const getOptions = (args) => {
   options.targetENV = args[4].replace('-', '');
   return options;
 };
+
+/**
+ * write yaml file
+ * @param data
+ * @param filename
+ * @returns {string}
+ */
 const writeYamlFile = (data, filename) => {
   try {
     const dirname = './output';
@@ -37,11 +58,6 @@ const writeYamlFile = (data, filename) => {
     return 'Failed :(';
   }
 };
-
-const options = getOptions(process.argv);
-const openApiFile = readYamlFile(options.apiFilePath);
-const envFile = readYamlEnv(readYamlFile(options.envFilePath), options.targetENV);
-
 
 const replaceEnv = (x) => {
   if (x.length !== undefined) {
@@ -58,4 +74,8 @@ const replaceEnv = (x) => {
   }
   return _.mapValues(x, (a) => replaceEnv(a));
 };
+
+const options = getOptions(process.argv);
+const openApiFile = readYamlFile(options.apiFilePath);
+const envFile = getEnv(readYamlFile(options.envFilePath), options.targetENV);
 console.log(_.mapValues(openApiFile, (x) => replaceEnv(x)));
