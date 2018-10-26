@@ -1,2 +1,1 @@
-export function merge() {
-}
+export function merge() {}

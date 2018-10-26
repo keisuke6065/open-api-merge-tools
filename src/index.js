@@ -2,13 +2,13 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 const _ = require('lodash');
 
-const readYamlFile= (filePath) => {
-    try {
-        const targetYamlFile = fs.readFileSync(filePath);
-        return yaml.safeLoad(targetYamlFile, 'utf8');
-    } catch (e) {
-        throw new Error(e)
-    }
+const readYamlFile = (filePath) => {
+  try {
+    const targetYamlFile = fs.readFileSync(filePath);
+    return yaml.safeLoad(targetYamlFile, 'utf8');
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 const readYamlEnv = (envFile, targetENV) => {
     if (envFile.propertyIsEnumerable(targetENV)) {
@@ -27,7 +27,6 @@ const getOptions = (args) => {
     options.targetENV = args[4].replace('-', '');
     return options;
 };
-
 const writeYamlFile= (data, filename) => {
     try {
         const dirname = './output';
