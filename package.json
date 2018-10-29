@@ -13,7 +13,7 @@
     "format": "prettier-eslint --write \"src/*.js\""
   },
   "bin": {
-    "open-api-merge": "src/index.js"
+    "open-api-merge-tool": "src/index.js"
   },
   "dependencies": {
     "js-yaml": "^3.12.0",
